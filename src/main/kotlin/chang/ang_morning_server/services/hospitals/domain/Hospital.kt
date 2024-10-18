@@ -2,6 +2,7 @@ package chang.ang_morning_server.services.hospitals.domain
 
 import chang.ang_morning_server.common.ddd.AggregateRoot
 import chang.ang_morning_server.services.valueObjects.Address
+import com.fasterxml.uuid.Generators
 import jakarta.persistence.Column
 import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
@@ -18,8 +19,7 @@ class Hospital(
 ) : AggregateRoot() {
     companion object {
         fun of(name: String, address: Address): Hospital {
-            // TODO: use uuid v7
-            return Hospital(name, address, UUID.randomUUID())
+            return Hospital(name, address, Generators.timeBasedEpochGenerator().generate())
         }
     }
 }
