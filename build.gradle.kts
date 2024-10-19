@@ -31,6 +31,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("com.fasterxml.uuid:java-uuid-generator:5.1.0")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
 }
 
 kotlin {

@@ -1,7 +1,7 @@
 package chang.ang_morning_server.services.hospitals.domain
 
 import chang.ang_morning_server.common.ddd.AggregateRoot
-import chang.ang_morning_server.services.valueObjects.Address
+import chang.ang_morning_server.services.valueObject.Address
 import com.fasterxml.uuid.Generators
 import jakarta.persistence.Column
 import jakarta.persistence.Embedded

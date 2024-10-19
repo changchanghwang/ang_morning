@@ -17,3 +17,9 @@ spring:
         show_sql: true
         dialect: org.hibernate.dialect.MySQLDialect
     generate-ddl: true
+
+naver:
+  api:
+    base-url: ${NAVER_BASE_URL}
+    api-key-id: ${NAVER_API_KEY_ID}
+    api-key: ${NAVER_API_KEY}
