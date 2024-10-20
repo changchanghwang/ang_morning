@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 @Service
 class HospitalService(private val hospitalRepository: HospitalRepository, private val mapService: MapService) {
     fun register(command: RegisterHospitalCommand) {
-        val address = mapService.searchAddress(command.mainAddress)?.with(null, command.subAddress)
+        val address = mapService.searchAddress(command.mainAddress)?.with(null, null, command.subAddress)
             ?: throw BadRequestException("Invalid Address")
 
         val hospital = Hospital.of(command.name, address)

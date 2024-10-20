@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service
 class MapService(private val placeRepository: PlaceRepository) {
     fun searchAddress(address: String): Address? {
         val place = this.placeRepository.findByAddress(address)
-        return Address(place.city, place.formattedAddress, "", place.zipCode, place.latitude, place.longitude)
+        return Address.of(place.city, place.formattedAddress, "", place.zipCode, place.latitude, place.longitude)
     }
 }

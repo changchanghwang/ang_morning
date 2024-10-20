@@ -12,7 +12,7 @@ spring:
     hibernate:
       ddl-auto: create # (none, create, create-drop, update, validate)
       naming:
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl # ?? camelCase-> underscore ?? ??.
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
