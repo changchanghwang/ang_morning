@@ -4,6 +4,7 @@ import jakarta.persistence.Embeddable
 
 @Embeddable
 data class Address(
+    val city: String,
     val mainAddress: String,
     val subAddress: String,
     val zipCode: String,
@@ -11,12 +12,20 @@ data class Address(
     val longitude: Double
 ) {
     companion object {
-        fun of(mainAddress: String, subAddress: String, zipCode: String, latitude: Double, longitude: Double): Address {
-            return Address(mainAddress, subAddress, zipCode, latitude, longitude)
+        fun of(
+            city: String,
+            mainAddress: String,
+            subAddress: String,
+            zipCode: String,
+            latitude: Double,
+            longitude: Double
+        ): Address {
+            return Address(city, mainAddress, subAddress, zipCode, latitude, longitude)
         }
     }
 
     fun with(
+        city: String? = null,
         mainAddress: String? = null,
         subAddress: String? = null,
         latitude: Double? = null,
@@ -24,6 +33,7 @@ data class Address(
         zipCode: String? = null
     ): Address {
         return this.copy(
+            city = city ?: this.city,
             mainAddress = mainAddress ?: this.mainAddress,
             subAddress = subAddress ?: this.subAddress,
             latitude = latitude ?: this.latitude,

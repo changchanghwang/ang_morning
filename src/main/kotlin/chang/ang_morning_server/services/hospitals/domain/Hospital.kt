@@ -9,7 +9,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import java.util.*
 
-@Entity
+@Entity(name = "hospital")
 class Hospital(
     @Column(nullable = false)
     val name: String,

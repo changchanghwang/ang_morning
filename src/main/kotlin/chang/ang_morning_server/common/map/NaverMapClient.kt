@@ -30,6 +30,8 @@ class NaverMapClient(
                 if (response.status == "OK" && response.addresses.isNotEmpty()) {
                     Mono.just(MapResponse(response.meta.totalCount, response.addresses.map { res ->
                         FormattedAddress(
+                            res.addressElements.find { it -> it.types.find { it == AddressElementType.SIDO } != null }?.longName
+                                ?: "",
                             res.roadAddress,
                             res.addressElements.find { it -> it.types.find { it == AddressElementType.POSTAL_CODE } != null }?.longName
                                 ?: "",

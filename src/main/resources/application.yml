@@ -11,6 +11,9 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: create # (none, create, create-drop, update, validate)
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl # ?? camelCase-> underscore ?? ??.
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
         format_sql: true
