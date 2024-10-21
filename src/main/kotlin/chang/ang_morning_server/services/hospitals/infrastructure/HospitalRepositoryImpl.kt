@@ -13,4 +13,8 @@ class HospitalRepositoryImpl(private val hospitalJpaRepository: HospitalJpaRepos
     override fun save(hospital: Hospital): Hospital {
         return hospitalJpaRepository.save(hospital)
     }
+
+    override fun count(): Long {
+        return hospitalJpaRepository.count()
+    }
 }
