@@ -21,6 +21,9 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
     generate-ddl: true
 
+hash:
+  cost: 12
+  
 naver:
   api:
     base-url: ${NAVER_BASE_URL}

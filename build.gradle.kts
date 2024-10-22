@@ -32,6 +32,7 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("com.fasterxml.uuid:java-uuid-generator:5.1.0")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("at.favre.lib:bcrypt:0.10.2")
 }
 
 kotlin {
