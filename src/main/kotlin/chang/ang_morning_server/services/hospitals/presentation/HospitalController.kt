@@ -11,11 +11,11 @@ class HospitalController(private val hospitalService: HospitalService) {
 
     @PostMapping
     fun registerHospital(@RequestBody command: RegisterHospitalCommand) {
-        hospitalService.register(command)
+        this.hospitalService.register(command)
     }
 
     @GetMapping
     fun list(): HospitalQueryResponse {
-        return hospitalService.list()
+        return this.hospitalService.list()
     }
 }

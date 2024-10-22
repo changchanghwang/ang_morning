@@ -12,17 +12,17 @@ import org.springframework.stereotype.Service
 @Service
 class HospitalService(private val hospitalRepository: HospitalRepository, private val mapService: MapService) {
     fun register(command: RegisterHospitalCommand) {
-        val address = mapService.searchAddress(command.mainAddress)?.with(null, null, command.subAddress)
+        val address = this.mapService.searchAddress(command.mainAddress)?.with(null, null, command.subAddress)
             ?: throw BadRequestException("Invalid Address")
 
         val hospital = Hospital.of(command.name, address)
 
-        hospitalRepository.save(hospital)
+        this.hospitalRepository.save(hospital)
     }
 
     fun list(): HospitalQueryResponse {
-        val hospitals = hospitalRepository.findAll()
-        val count = hospitalRepository.count()
+        val hospitals = this.hospitalRepository.findAll()
+        val count = this.hospitalRepository.count()
 
         return HospitalQueryResponse(hospitals.map { it -> HospitalOutput(it.id, it.name, it.address) }, count)
     }
