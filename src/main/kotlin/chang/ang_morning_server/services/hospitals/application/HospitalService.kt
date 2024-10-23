@@ -24,6 +24,6 @@ class HospitalService(private val hospitalRepository: HospitalRepository, privat
         val hospitals = this.hospitalRepository.findAll()
         val count = this.hospitalRepository.count()
 
-        return HospitalQueryResponse(hospitals.map { it -> HospitalOutput(it.id, it.name, it.address) }, count)
+        return HospitalQueryResponse(hospitals.map { HospitalOutput(it.id, it.name, it.address) }, count)
     }
 }
