@@ -5,21 +5,22 @@ import chang.ang_morning_server.services.members.command.SignUpResponse
 import chang.ang_morning_server.services.members.domain.Member
 import chang.ang_morning_server.services.members.domain.MemberRepository
 import chang.ang_morning_server.services.members.domain.services.MemberValidator
-import chang.ang_morning_server.services.members.domain.services.PasswordService
 import jakarta.transaction.Transactional
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
 class MemberService(
     private val memberRepository: MemberRepository,
     private val memberValidator: MemberValidator,
-    private val passwordService: PasswordService
+    private val passwordEncoder: PasswordEncoder
 ) {
     @Transactional
     fun signUp(command: SignUpCommand): SignUpResponse {
         this.memberValidator.validateSignUp(command.email)
 
-        val member = Member.of(command.email, command.password, command.nickname, this.passwordService)
+        val encodedPassword = passwordEncoder.encode(command.password)
+        val member = Member.of(command.email, encodedPassword, command.nickname)
 
         this.memberRepository.save(member)
 

@@ -23,6 +23,12 @@ spring:
 
 hash:
   cost: 12
+
+jwt:
+  access-token-secret: "ThisIsAVeryVerySecretKeyForAccessTokenAndItNeedsToBeLongEnoughForHS512Algorithm"  # 64자 이상
+  refresh-token-secret: "ThisIsAnotherVeryVerySecretKeyForRefreshTokenAndItAlsoNeedsToBeLongEnoughForHS512"  # 64자 이상
+  access-token-expiration: 86400000  # 24시간
+  refresh-token-expiration: 2592000000  # 30일
   
 naver:
   api:

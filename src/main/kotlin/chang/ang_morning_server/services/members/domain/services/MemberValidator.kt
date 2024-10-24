@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component
 @Component
 class MemberValidator(private val memberRepository: MemberRepository) {
     fun validateSignUp(email: String) {
-        val exist = this.memberRepository.findByEmail(email).isPresent
-        if (exist) {
+        val exist = this.memberRepository.findByEmail(email)
+        if (exist !== null) {
             throw BadRequest("Duplicated Email($email)", "중복된 이메일 입니다.")
         }
     }

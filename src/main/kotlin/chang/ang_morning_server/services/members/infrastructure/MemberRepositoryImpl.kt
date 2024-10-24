@@ -11,7 +11,11 @@ class MemberRepositoryImpl(private val jpaRepository: MemberJpaRepository) : Mem
         return this.jpaRepository.save(member)
     }
 
-    override fun findByEmail(email: String): Optional<Member> {
-        return this.jpaRepository.findByEmail(email)
+    override fun findByEmail(email: String): Member? {
+        return this.jpaRepository.findByEmail(email).orElse(null)
+    }
+
+    override fun findById(id: UUID): Member? {
+        return this.jpaRepository.findById(id).orElse(null)
     }
 }

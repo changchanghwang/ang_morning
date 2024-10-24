@@ -1,7 +1,6 @@
 package chang.ang_morning_server.services.members.domain
 
 import chang.ang_morning_server.common.ddd.AggregateRoot
-import chang.ang_morning_server.services.members.domain.services.PasswordService
 import com.fasterxml.uuid.Generators
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -19,8 +18,7 @@ class Member(
     @Id val id: UUID
 ) : AggregateRoot() {
     companion object {
-        fun of(email: String, password: String, nickname: String, passwordService: PasswordService): Member {
-            val hashedPassword = passwordService.hash(password)
+        fun of(email: String, hashedPassword: String, nickname: String): Member {
             return Member(email, hashedPassword, nickname, Generators.timeBasedEpochGenerator().generate())
         }
     }
