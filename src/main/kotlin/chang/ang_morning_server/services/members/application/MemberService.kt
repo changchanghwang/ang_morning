@@ -4,6 +4,7 @@ import chang.ang_morning_server.services.members.command.SignUpCommand
 import chang.ang_morning_server.services.members.command.SignUpResponse
 import chang.ang_morning_server.services.members.domain.Member
 import chang.ang_morning_server.services.members.domain.MemberRepository
+import chang.ang_morning_server.services.members.domain.ProviderType
 import chang.ang_morning_server.services.members.domain.services.MemberValidator
 import jakarta.transaction.Transactional
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -20,7 +21,7 @@ class MemberService(
         this.memberValidator.validateSignUp(command.email)
 
         val encodedPassword = passwordEncoder.encode(command.password)
-        val member = Member.of(command.email, encodedPassword, command.nickname)
+        val member = Member.of(command.email, encodedPassword, command.nickname, ProviderType.LOCAL)
 
         this.memberRepository.save(member)
 

@@ -29,7 +29,13 @@ jwt:
   refresh-token-secret: "ThisIsAnotherVeryVerySecretKeyForRefreshTokenAndItAlsoNeedsToBeLongEnoughForHS512"  # 64자 이상
   access-token-expiration: 86400000  # 24시간
   refresh-token-expiration: 2592000000  # 30일
-  
+
+oauth2:
+  kakao:
+    client-id: ${KAKAO_CLIENT_ID}
+    client-secret: ${KAKAO_CLIENT_SECRET}
+    redirect-uri: ${KAKAO_REDIRECT_URI}
+
 naver:
   api:
     base-url: ${NAVER_BASE_URL}

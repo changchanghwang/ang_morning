@@ -7,6 +7,13 @@ import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import java.util.*
 
+enum class ProviderType {
+    NAVER,
+    KAKAO,
+    GOOGLE,
+    LOCAL
+}
+
 @Entity(name = "member")
 class Member(
     @Column(nullable = false)
@@ -15,11 +22,26 @@ class Member(
     val password: String,
     @Column(nullable = false)
     val nickname: String,
+    @Column(nullable = false)
+    val provider: ProviderType,
+    @Column(nullable = true)
+    val lastProviderType: ProviderType?,
     @Id val id: UUID
 ) : AggregateRoot() {
     companion object {
-        fun of(email: String, hashedPassword: String, nickname: String): Member {
-            return Member(email, hashedPassword, nickname, Generators.timeBasedEpochGenerator().generate())
+        fun of(email: String, hashedPassword: String, nickname: String, provider: ProviderType): Member {
+            return Member(
+                email,
+                hashedPassword,
+                nickname,
+                provider,
+                null,
+                Generators.timeBasedEpochGenerator().generate()
+            )
         }
+    }
+
+    fun addProvider(provider: ProviderType) {
+
     }
 }

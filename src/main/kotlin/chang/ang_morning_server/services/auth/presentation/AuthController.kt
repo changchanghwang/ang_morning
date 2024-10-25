@@ -1,6 +1,7 @@
 package chang.ang_morning_server.services.auth.presentation
 
 import chang.ang_morning_server.services.auth.application.AuthService
+import chang.ang_morning_server.services.auth.command.OAuthCommand
 import chang.ang_morning_server.services.auth.command.SignInCommand
 import chang.ang_morning_server.services.auth.command.TokenRefreshCommand
 import chang.ang_morning_server.services.auth.command.TokenResponse
@@ -21,6 +22,17 @@ class AuthController(
         val tokenResponse = authService.signIn(command, clientInfo)
         return ResponseEntity.ok(tokenResponse)
     }
+
+
+    @PostMapping("/sign-in/{provider}")
+    fun oauth(
+        @Valid @RequestBody command: OAuthCommand,
+        @RequestHeader("User-Agent") clientInfo: String
+    ): ResponseEntity<TokenResponse> {
+        val tokenResponse = authService.oAuth(command, clientInfo)
+        return ResponseEntity.ok(tokenResponse)
+    }
+
 
     @PostMapping("/refresh")
     fun refresh(

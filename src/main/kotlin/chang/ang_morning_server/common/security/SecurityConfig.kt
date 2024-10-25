@@ -30,6 +30,7 @@ class SecurityConfig(
                 auth
                     .requestMatchers(
                         "/auth/signin",
+                        "/auth/signin/**",
                         "/members",
                         "/auth/refresh"
                     ).permitAll()
