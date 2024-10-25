@@ -21,7 +21,7 @@ class AuthService(
     private val memberRepository: MemberRepository,
     private val refreshTokenRepository: RefreshTokenRepository,
     private val jwtTokenService: JwtTokenService,
-    private val passwordEncoder: PasswordEncoder
+    private val passwordEncoder: PasswordEncoder,
     private val oauthClientFactory: OauthClientFactory
 ) {
     @Transactional
@@ -38,7 +38,9 @@ class AuthService(
 
         val accessToken = this.jwtTokenService.createAccessToken(member.id)
         val refreshToken = this.jwtTokenService.createRefreshToken()
+        member.signIn(ProviderType.LOCAL)
 
+        this.memberRepository.save(member)
         this.refreshTokenRepository.save(
             RefreshToken(
                 token = refreshToken,
@@ -51,7 +53,7 @@ class AuthService(
     }
 
     @Transactional
-    fun oAuth(command: OAuthCommand, clientInfo: String?):TokenResponse {
+    fun oAuth(command: OAuthCommand, clientInfo: String?): TokenResponse {
         val client = this.oauthClientFactory.getClient(command.provider)
 
         val oAuthToken = client.getToken(command.code)
@@ -59,11 +61,13 @@ class AuthService(
 
         val member = memberRepository.findByEmail(oAuthUserInfo.email)
             ?.also { it.addProvider(command.provider) }
-            ?: Member.of(oAuthUserInfo.email,"passwprd",oAuthUserInfo.nickname,ProviderType.KAKAO)
+            ?: Member.of(oAuthUserInfo.email, "passwprd", oAuthUserInfo.nickname, ProviderType.KAKAO)
 
         val accessToken = this.jwtTokenService.createAccessToken(member.id)
         val refreshToken = this.jwtTokenService.createRefreshToken()
 
+        member.signIn(ProviderType.KAKAO)
+        this.memberRepository.save(member)
         this.refreshTokenRepository.save(
             RefreshToken(
                 token = refreshToken,

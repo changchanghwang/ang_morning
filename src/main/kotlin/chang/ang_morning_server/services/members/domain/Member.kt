@@ -25,11 +25,16 @@ class Member(
     @Column(nullable = false)
     val provider: ProviderType,
     @Column(nullable = true)
-    val lastProviderType: ProviderType?,
+    var lastProviderType: ProviderType?,
     @Id val id: UUID
 ) : AggregateRoot() {
     companion object {
-        fun of(email: String, hashedPassword: String, nickname: String, provider: ProviderType): Member {
+        fun of(
+            email: String,
+            hashedPassword: String,
+            nickname: String,
+            provider: ProviderType,
+        ): Member {
             return Member(
                 email,
                 hashedPassword,
@@ -43,5 +48,9 @@ class Member(
 
     fun addProvider(provider: ProviderType) {
 
+    }
+
+    fun signIn(provider: ProviderType) {
+        this.lastProviderType = provider
     }
 }
