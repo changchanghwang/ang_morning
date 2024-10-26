@@ -13,11 +13,15 @@ class Review(
     val description: String,
     @Column(nullable = false)
     val hospitalId: UUID,
+    @Column(nullable = false)
+    val score: Int,
+    @Column(nullable = false)
+    val userId: UUID,
     @Id val id: UUID
 ) : AggregateRoot() {
     companion object {
-        fun of(description: String, hospitalId: UUID): Review {
-            return Review(description, hospitalId, Generators.timeBasedEpochGenerator().generate())
+        fun of(description: String, score: Int, hospitalId: UUID, userId: UUID): Review {
+            return Review(description, hospitalId, score, userId, Generators.timeBasedEpochGenerator().generate())
         }
     }
 }

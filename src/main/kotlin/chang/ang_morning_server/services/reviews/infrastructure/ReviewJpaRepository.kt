@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 
 interface ReviewJpaRepository : JpaRepository<Review, UUID> {
+    fun findByUserIdAndHospitalId(userId: UUID, hospitalId: UUID): Review?
 }
