@@ -53,14 +53,13 @@ class AuthService(
     }
 
     @Transactional
-    fun oAuth(command: OAuthCommand, clientInfo: String?): TokenResponse {
-        val client = this.oauthClientFactory.getClient(command.provider)
+    fun oAuth(provider: ProviderType, command: OAuthCommand, clientInfo: String?): TokenResponse {
+        val client = this.oauthClientFactory.getClient(provider)
 
         val oAuthToken = client.getToken(command.code)
         val oAuthUserInfo = client.getUserInfo(oAuthToken.accessToken)
 
         val member = memberRepository.findByEmail(oAuthUserInfo.email)
-            ?.also { it.addProvider(command.provider) }
             ?: Member.of(oAuthUserInfo.email, "passwprd", oAuthUserInfo.nickname, ProviderType.KAKAO)
 
         val accessToken = this.jwtTokenService.createAccessToken(member.id)

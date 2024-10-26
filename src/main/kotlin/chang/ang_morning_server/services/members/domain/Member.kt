@@ -3,6 +3,7 @@ package chang.ang_morning_server.services.members.domain
 import chang.ang_morning_server.common.ddd.AggregateRoot
 import com.fasterxml.uuid.Generators
 import jakarta.persistence.Column
+import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import java.util.*
@@ -18,14 +19,20 @@ enum class ProviderType {
 class Member(
     @Column(nullable = false)
     val email: String,
+
     @Column(nullable = false)
     val password: String,
+
     @Column(nullable = false)
     val nickname: String,
+
+    @Convert(converter = ProviderTypeListConverter::class)
     @Column(nullable = false)
-    val provider: ProviderType,
+    var providers: List<ProviderType> = listOf(),
+
     @Column(nullable = true)
     var lastProviderType: ProviderType?,
+
     @Id val id: UUID
 ) : AggregateRoot() {
     companion object {
@@ -39,18 +46,17 @@ class Member(
                 email,
                 hashedPassword,
                 nickname,
-                provider,
+                providers = listOf(provider),
                 null,
                 Generators.timeBasedEpochGenerator().generate()
             )
         }
     }
 
-    fun addProvider(provider: ProviderType) {
-
-    }
-
     fun signIn(provider: ProviderType) {
+        if (!this.providers.contains(provider)) {
+            this.providers += provider
+        }
         this.lastProviderType = provider
     }
 }

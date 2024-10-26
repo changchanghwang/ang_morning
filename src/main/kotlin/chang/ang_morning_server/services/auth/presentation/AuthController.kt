@@ -5,6 +5,7 @@ import chang.ang_morning_server.services.auth.command.OAuthCommand
 import chang.ang_morning_server.services.auth.command.SignInCommand
 import chang.ang_morning_server.services.auth.command.TokenRefreshCommand
 import chang.ang_morning_server.services.auth.command.TokenResponse
+import chang.ang_morning_server.services.members.domain.ProviderType
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -26,10 +27,11 @@ class AuthController(
 
     @PostMapping("/sign-in/{provider}")
     fun oauth(
+        @PathVariable provider: ProviderType,
         @Valid @RequestBody command: OAuthCommand,
         @RequestHeader("User-Agent") clientInfo: String
     ): ResponseEntity<TokenResponse> {
-        val tokenResponse = authService.oAuth(command, clientInfo)
+        val tokenResponse = authService.oAuth(provider, command, clientInfo)
         return ResponseEntity.ok(tokenResponse)
     }
 
