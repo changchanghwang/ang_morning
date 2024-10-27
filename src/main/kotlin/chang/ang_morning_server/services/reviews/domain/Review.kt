@@ -1,6 +1,7 @@
 package chang.ang_morning_server.services.reviews.domain
 
 import chang.ang_morning_server.common.ddd.AggregateRoot
+import chang.ang_morning_server.services.reviews.domain.services.ReviewValidator
 import com.fasterxml.uuid.Generators
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -20,7 +21,14 @@ class Review(
     @Id val id: UUID
 ) : AggregateRoot() {
     companion object {
-        fun of(description: String, score: Int, hospitalId: UUID, userId: UUID): Review {
+        fun of(
+            description: String,
+            score: Int,
+            hospitalId: UUID,
+            userId: UUID,
+            reviewValidator: ReviewValidator
+        ): Review {
+            reviewValidator.validateWriting(userId, hospitalId)
             return Review(description, hospitalId, score, userId, Generators.timeBasedEpochGenerator().generate())
         }
     }
